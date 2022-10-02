@@ -3,8 +3,15 @@
 
 Read-Host -Prompt "WARNING: The Computer Will Reboot When Execution Concludes, Press Enter to Continue"
 
+$Deps = @(
+            "9P7KNL5RWT25"  # Sysinternals Suite
+        )
+
 Write-Host "Installing Dependencies"
-            winget install --silent --accept-package-agreements --accept-source-agreements 9P7KNL5RWT25
+        foreach ($Dep in $Deps){
+            Write-Host "Installing $Dep."
+		    winget install --silent --accept-package-agreements --accept-source-agreements $Dep
+        }
 
 Write-Host "Disabling Activity History."
             Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed" -Type DWord -Value 0
@@ -586,6 +593,9 @@ $IpList = @(
             }
 
 Write-Host "Removing Dependencies"
-            winget uninstall --silent 9P7KNL5RWT25
+            foreach ($Dep in $Deps){
+                Write-Host "Removing $Dep."
+                winget uninstall $Dep
+            }
 
 Restart-Computer -Force
