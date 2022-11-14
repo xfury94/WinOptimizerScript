@@ -592,10 +592,15 @@ $IpList = @(
                 Write-Host "Blocking $Ip."
             }
 
-Write-Host "Removing Dependencies"
+Write-Host "Removing Dependencies."
             foreach ($Dep in $Deps){
                 Write-Host "Removing $Dep."
                 winget uninstall $Dep
             }
+
+Write-Host "Cleaning Windows."
+                Get-ChildItem -Path "C:\Windows\Temp" *.* -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+                Get-ChildItem -Path $env:TEMP *.* -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+                cmd /c cleanmgr.exe /d C: /VERYLOWDISK
 
 Restart-Computer -Force
