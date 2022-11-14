@@ -599,6 +599,14 @@ $IpList = @(
                 Write-Host "Blocking $Ip."
             }
 
+Write-Host "Running O&O with Chris custom config."
+            If (!(Test-Path .\ooshutup10.cfg)) {
+                Write-Host "Running O&O Shutup with Recommended Settings"
+                curl.exe -s "https://raw.githubusercontent.com/ChrisTitusTech/win10script/master/ooshutup10.cfg" -o ooshutup10.cfg
+                curl.exe -s "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -o OOSU10.exe
+            }
+            ./OOSU10.exe ooshutup10.cfg /quiet
+
 Write-Host "Removing Dependencies."
             foreach ($Dep in $Deps){
                 Write-Host "Removing $Dep."
