@@ -50,6 +50,13 @@ Write-Host "Disabling Location Tracking."
 Write-Host "Restore Classic Context Menu."
             New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Name "InprocServer32" -force -value ""
 
+Write-Host "Setting DNS to Cloud Flare for all connections."
+            $DC = "1.1.1.1"
+            $Internet = "1.0.0.1"
+            $dns = "$DC", "$Internet"
+            $Interface = Get-WmiObject Win32_NetworkAdapterConfiguration 
+            $Interface.SetDNSServerSearchOrder($dns)  | Out-Null
+
 Write-Host "Disabling automatic Maps updates."
             Set-ItemProperty -Path "HKLM:\SYSTEM\Maps" -Name "AutoUpdateEnabled" -Type DWord -Value 0
 
