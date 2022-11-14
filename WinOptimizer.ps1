@@ -600,6 +600,7 @@ Write-Host "Running O&O with Chris custom config."
                 curl.exe -s "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -o OOSU10.exe
             }
             ./OOSU10.exe ooshutup10.cfg /quiet
+            Remove-Item oos*
 
 Write-Host "Removing Dependencies."
             foreach ($Dep in $Deps){
