@@ -47,9 +47,6 @@ Write-Host "Disabling Location Tracking."
             Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" -Name "SensorPermissionState" -Type DWord -Value 0
             Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration" -Name "Status" -Type DWord -Value 0
 
-Write-Host "Restore Classic Context Menu."
-            New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Name "InprocServer32" -force -value ""
-
 Write-Host "Setting DNS to Cloud Flare for all connections."
             $DC = "1.1.1.1"
             $Internet = "1.0.0.1"
@@ -59,11 +56,6 @@ Write-Host "Setting DNS to Cloud Flare for all connections."
 
 Write-Host "Disabling automatic Maps updates."
             Set-ItemProperty -Path "HKLM:\SYSTEM\Maps" -Name "AutoUpdateEnabled" -Type DWord -Value 0
-
-Write-Host "Disabling Notifications and Action Center."
-            New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows" -Name "Explorer" -force
-            New-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -PropertyType "DWord" -Value 1
-            New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -PropertyType "DWord" -Value 0 -force
 
 $Services = @(
                 "ALG"                                          # Application Layer Gateway Service(Provides support for 3rd party protocol plug-ins for Internet Connection Sharing)
