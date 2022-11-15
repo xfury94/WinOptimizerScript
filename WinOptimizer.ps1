@@ -600,5 +600,3 @@ Write-Host "Cleaning Windows."
                 Get-ChildItem -Path "C:\Windows\Temp" *.* -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
                 Get-ChildItem -Path $env:TEMP *.* -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
                 cmd /c cleanmgr.exe /d C: /VERYLOWDISK
-
-Restart-Computer -Force
